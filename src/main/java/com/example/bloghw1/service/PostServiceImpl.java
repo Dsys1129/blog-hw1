@@ -1,5 +1,6 @@
 package com.example.bloghw1.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,9 +62,15 @@ public class PostServiceImpl implements PostService{
         return response;
     }
 
+    @Transactional
     @Override
     public ResponseEntity deletePost(Long postId, String password) {
-        return null;
-    }
+        Post post = postRepository.findById(postId).orElseThrow();
 
+        if (!post.getPassword().equals(password)) {
+            return ResponseEntity.ok(Collections.singletonMap("success","false"));
+        }
+        postRepository.delete(post);
+        return ResponseEntity.ok(Collections.singletonMap("success","true"));
+    }
 }
