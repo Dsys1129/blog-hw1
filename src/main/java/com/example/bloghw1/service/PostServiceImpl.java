@@ -2,6 +2,7 @@ package com.example.bloghw1.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -65,7 +66,7 @@ public class PostServiceImpl implements PostService{
 
     @Transactional
     @Override
-    public ResponseEntity deletePost(Long postId, String password) {
+    public ResponseEntity<Map<String, String>> deletePost(Long postId, String password) {
         Post post = postRepository.findById(postId).orElseThrow();
 
         if (!post.getPassword().equals(password)) {

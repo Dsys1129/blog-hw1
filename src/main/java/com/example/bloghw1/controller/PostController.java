@@ -3,6 +3,7 @@ package com.example.bloghw1.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,31 +28,31 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts")
-    public ResponseEntity createPost(@RequestBody PostRequestDTO request) {
+    public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostRequestDTO request) {
         PostResponseDTO response = postService.createPost(request);
-        return ResponseEntity.ok(response);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/posts")
-    public ResponseEntity getPosts() {
+    public ResponseEntity<List<PostResponseDTO>> getPosts() {
         List<PostResponseDTO> posts = postService.getPosts();
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/posts/{postId}")
-    public ResponseEntity getPost(@PathVariable("postId") Long postId) {
+    public ResponseEntity<PostResponseDTO> getPost(@PathVariable("postId") Long postId) {
         PostResponseDTO response = postService.getPost(postId);
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/posts/{postId}")
-    public ResponseEntity modifyPost(@PathVariable("postId") Long postId, @RequestBody PostRequestDTO request) {
+    public ResponseEntity<PostResponseDTO> modifyPost(@PathVariable("postId") Long postId, @RequestBody PostRequestDTO request) {
         PostResponseDTO response = postService.modifyPost(postId, request);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/posts/{postId}")
-    public ResponseEntity deletePost(@PathVariable("postId") Long postId, @RequestBody Map<String,String> password){
+    public ResponseEntity<Map<String,String>> deletePost(@PathVariable("postId") Long postId, @RequestBody Map<String,String> password){
         return postService.deletePost(postId, password.get("password"));
     }
 }
