@@ -49,9 +49,16 @@ public class PostServiceImpl implements PostService{
         return response;
     }
 
+    @Transactional
     @Override
     public PostResponseDTO modifyPost(Long postId, PostRequestDTO postRequestDTO) {
-        return null;
+        Post post = postRepository.findById(postId).orElseThrow();
+
+        if (!post.getPassword().equals(postRequestDTO.getPassword())) {
+            post.modifyPost(postRequestDTO.getTitle(), postRequestDTO.getAuthor(), postRequestDTO.getContents());
+        }
+        PostResponseDTO response = new PostResponseDTO(post);
+        return response;
     }
 
     @Override
