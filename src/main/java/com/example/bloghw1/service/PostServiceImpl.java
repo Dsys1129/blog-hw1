@@ -41,9 +41,12 @@ public class PostServiceImpl implements PostService{
         return response;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public PostResponseDTO getPost(Long postId) {
-        return null;
+        Post post = postRepository.findById(postId).orElseThrow();
+        PostResponseDTO response = new PostResponseDTO(post);
+        return response;
     }
 
     @Override
