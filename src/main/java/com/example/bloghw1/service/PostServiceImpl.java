@@ -1,6 +1,7 @@
 package com.example.bloghw1.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,15 @@ public class PostServiceImpl implements PostService{
         return response;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<PostResponseDTO> getPosts() {
-        return null;
+        List<Post> posts = postRepository.findAllByOrderByCreatedDateDesc();
+
+        List<PostResponseDTO> response = posts.stream()
+            .map(PostResponseDTO::new)
+            .collect(Collectors.toList());
+        return response;
     }
 
     @Override
