@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,7 +69,7 @@ public class PostServiceImpl implements PostService{
         Post post = postRepository.findById(postId).orElseThrow();
 
         if (!post.getPassword().equals(password)) {
-            return ResponseEntity.ok(Collections.singletonMap("success","false"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("success","false"));
         }
         postRepository.delete(post);
         return ResponseEntity.ok(Collections.singletonMap("success","true"));
