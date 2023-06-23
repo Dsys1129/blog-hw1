@@ -1,6 +1,10 @@
 package com.example.bloghw1.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,4 +29,15 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/posts")
+    public ResponseEntity getPosts() {
+        List<PostResponseDTO> posts = postService.getPosts();
+        return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping("/posts/{postId}")
+    public ResponseEntity getPost(@PathVariable("postId") Long postId) {
+        PostResponseDTO response = postService.getPost(postId);
+        return ResponseEntity.ok(response);
+    }
 }
