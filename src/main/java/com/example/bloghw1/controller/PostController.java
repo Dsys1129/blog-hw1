@@ -1,8 +1,10 @@
 package com.example.bloghw1.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,5 +48,10 @@ public class PostController {
     public ResponseEntity modifyPost(@PathVariable("postId") Long postId, @RequestBody PostRequestDTO request) {
         PostResponseDTO response = postService.modifyPost(postId, request);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity deletePost(@PathVariable("postId") Long postId, @RequestBody Map<String,String> password){
+        return postService.deletePost(postId, password.get("password"));
     }
 }
