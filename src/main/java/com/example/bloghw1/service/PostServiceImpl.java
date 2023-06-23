@@ -57,7 +57,7 @@ public class PostServiceImpl implements PostService{
     public PostResponseDTO modifyPost(Long postId, PostRequestDTO postRequestDTO) {
         Post post = postRepository.findById(postId).orElseThrow();
 
-        if (!post.getPassword().equals(postRequestDTO.getPassword())) {
+        if (post.getPassword().equals(postRequestDTO.getPassword())) {
             post.modifyPost(postRequestDTO.getTitle(), postRequestDTO.getAuthor(), postRequestDTO.getContents());
         }
         PostResponseDTO response = new PostResponseDTO(post);
