@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,7 +69,7 @@ public class PostServiceImpl implements PostService{
 
     @Transactional
     @Override
-    public ResponseEntity<Map<String,String>> deletePost(Long postId, String password) {
+    public Map<String,String> deletePost(Long postId, String password) {
         Post post = postRepository.findById(postId)
             .orElseThrow(() -> new PostNotFoundException("Post Not Found"));
 
@@ -78,6 +77,6 @@ public class PostServiceImpl implements PostService{
             throw new PasswordMismatchException("The entered password does not matched");
         }
         postRepository.delete(post);
-        return ResponseEntity.ok(Collections.singletonMap("success","true"));
+        return Collections.singletonMap("success","true");
     }
 }
