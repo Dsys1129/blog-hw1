@@ -9,15 +9,15 @@ import lombok.Getter;
 @Getter
 public class PostResponseDTO {
 
-    private Long postId;
+    private final Long postId;
 
-    private String title;
+    private final String title;
 
-    private String author;
+    private final String author;
 
-    private String contents;
+    private final String contents;
 
-    private LocalDateTime createdDate;
+    private final LocalDateTime createdDate;
 
     public PostResponseDTO(Post post){
         this.postId = post.getPostId();
