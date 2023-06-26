@@ -7,13 +7,20 @@ import lombok.Getter;
 @Getter
 public class PostRequestDTO {
 
-    private String title;
+    private final String title;
 
-    private String contents;
+    private final String contents;
 
-    private String author;
+    private final String author;
 
-    private String password;
+    private final String password;
+
+    public PostRequestDTO(String title, String contents, String author, String password) {
+        this.title = title;
+        this.contents = contents;
+        this.author = author;
+        this.password = password;
+    }
 
     public Post toEntity(){
         return Post.builder()
