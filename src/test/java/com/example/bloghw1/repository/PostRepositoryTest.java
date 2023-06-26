@@ -42,5 +42,8 @@ class PostRepositoryTest {
             postRepository.findAllByOrderByCreatedDateDesc();
 
         Assertions.assertThat(posts.get(0) == savedPost2).isTrue();
+        Assertions.assertThat(posts.get(1) == savedPost1).isTrue();
+        Assertions.assertThat(posts.get(0).getCreatedDate()).isAfter(posts.get(1).getCreatedDate());
+
     }
 }
